@@ -1,2 +1,119 @@
 # Termux-3in1-hacking-tool-
 Hey this is my first tool i created and its the simplest tool to use it contains CamPhish with IP puller,,,, Zphisher and a whole hack menu
+
+Copy-paste into termux and done
+
+
+
+
+
+
+
+cat << 'EOF' > dani\_os\_v13.sh
+\#!/usr/bin/env bash
+
+\# Colors
+WHITE='\033[1;37m'
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' 
+
+\# Function: Command Mode
+command\_mode() {
+    clear
+    echo -e "${CYAN}=== DANI-OS COMMAND MODE ===${NC}"
+    echo -e "Type ${RED}'exit'${NC} to return to menu.\n"
+    while true; do
+        echo -ne "${GREEN}DANI-OS@Termux${NC}:${WHITE}\~${NC}$ "
+        read -r cmd
+        if [[ "$cmd" == "exit" ]]; then
+            break
+        fi
+        eval "$cmd"
+    done
+}
+
+\# Function: Tools Menu
+tools\_menu() {
+    while true; do
+        clear
+        echo -e "${CYAN}===================================${NC}"
+        echo -e "${WHITE}           TOOLS MENU            ${NC}"
+        echo -e "${CYAN}===================================${NC}"
+        echo -e "01) CamPhish"
+        echo -e "02) ZPhisher"
+        echo -e "03) Hack Menu (TermuxCyberArmy)"
+        echo -e "04) Back to Main Menu"
+        echo -e "${CYAN}===================================${NC}"
+        echo -ne "${WHITE}Select a tool: ${NC}"
+        read -r choice
+        
+        case $choice in
+            01|1)
+                if [ ! -d "CphishTermux" ]; then
+                    git clone https://github.com/SajidibnNayeem/CphishTermux.git
+                fi
+                cd CphishTermux && bash CphishTermux.sh
+                cd ..
+                ;;
+            02|2)
+                if [ ! -d "zphisher" ]; then
+                    git clone --depth=1 https://github.com/htr-tech/zphisher.git
+                fi
+                cd zphisher && bash zphisher.sh
+                cd ..
+                ;;
+            03|3)
+                apt update && apt upgrade -y
+                apt install git python2 -y
+                if [ ! -d "TermuxCyberArmy" ]; then
+                    git clone https://github.com/Err0r-ICA/TermuxCyberArmy
+                fi
+                cd TermuxCyberArmy && python2 TCA
+                cd ..
+                ;;
+            04|4)
+                break
+                ;;
+            \*)
+                echo -e "${RED}Invalid option${NC}"
+                sleep 1
+                ;;
+        esac
+    done
+}
+
+\# Main Menu Loop
+while true; do
+    clear
+    echo -e "${CYAN}===================================${NC}"
+    echo -e "${WHITE}           DANI-OS v13           ${NC}"
+    echo -e "${CYAN}===================================${NC}"
+    echo -e "${WHITE}01)${NC} Command Mode"
+    echo -e "${WHITE}02)${NC} Tools Menu"
+    echo -e "${WHITE}03)${NC} Exit"
+    echo -e "${CYAN}===================================${NC}"
+    echo -ne "${WHITE}Action: ${NC}"
+    read -r option
+    
+    case $option in
+        01|1) command\_mode ;;
+        02|2) tools\_menu ;;
+        03|3) 
+            echo -e "${CYAN}Shutting down DANI-OS...${NC}"
+            sleep 1
+            exit 0 
+            ;;
+        \*) 
+            echo -e "${RED}Invalid choice, try again.${NC}"
+            sleep 1 
+            ;;
+    esac
+done
+EOF
+chmod +x dani\_os\_v13.sh
+echo "DANI-OS v13 created! Run it with: ./dani\_os\_v13.sh"
+
+
+
